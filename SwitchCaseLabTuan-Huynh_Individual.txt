@@ -1,0 +1,162 @@
+// Description  : calculate the fee for costumer depend on their purchased package
+// Title        : Online music store
+// Author       : Tuan Huynh
+// Last modified: 10/04/2017
+
+#include <string>
+#include <iomanip>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	// Set up
+	system("title SwitchCaseLab - Online music store(TuanHuynh_TeamOrange)");
+	system("color 70");
+	cout << setprecision(2) << fixed;
+
+	// banner
+	cout
+		<< "\n\t             Switch Case GROUP Lab"
+		<< "\n\t              Online music store"
+		<< "\n\t    also need nested if ... else statements"
+		<< "\n\t          and the conditional operator"
+		<< "\n\t  and the use of \"coutinue\" in one place ONLY"
+		<< "\n\t                by Tuan Huynh\n";
+
+
+
+	// variable declaration
+	const double
+		A_MONTHLY_FEE = 4.99,
+		B_MONTHLY_FEE = 9.99,
+		C_MONTHLY_FEE = 14.99,
+		A_SONG_PRICE = 0.99,
+		B_SONG_PRICE = 0.59,
+		C_SONG_PRICE = 0.29,
+		TAX_RATE = 0.06;
+	const int
+		A_FREE_SONG = 10,
+		B_FREE_SONG = 20,
+		C_FREE_SONG = 30;
+
+	double total, songPrice, monthlyFee, songQuantity, tax, extraFee;
+	int freeSongLimit, songExceed;
+	bool errorFlag = 0; // true if songquantity number was inputted wrong format (negative or not a whole number)
+	char package;
+
+
+	while (true)
+	{
+		// menu
+		cout
+			<< "\n\nHere are the possible option packages offered in our store:"
+			<< "\n  Package A: Monthly fee $" << setw(5) << A_MONTHLY_FEE << ". "
+			<< A_FREE_SONG << " free songs and $" << setw(3) << A_SONG_PRICE
+			<< " per song after that."
+
+			<< "\n  Package B: Monthly fee $" << setw(5) << B_MONTHLY_FEE << ". "
+			<< B_FREE_SONG << " free songs and $" << setw(3) << B_SONG_PRICE
+			<< " per song after that."
+
+			<< "\n  Package A: Monthly fee $" << setw(5) << C_MONTHLY_FEE << ". "
+			<< C_FREE_SONG << " free songs and $" << setw(3) << C_SONG_PRICE
+			<< " per song after that.";
+
+		//package input
+		cout << "\n\nPlease select the option package that you have? ";
+		cin >> package;
+		cin.ignore(100, '\n');
+		switch (package)
+		{
+		case 'a':
+		case 'A':
+		{
+			monthlyFee = A_MONTHLY_FEE;
+			songPrice = A_SONG_PRICE;
+			freeSongLimit = A_FREE_SONG;
+			break;
+		}
+
+		case 'b':
+		case 'B':
+		{
+			monthlyFee = B_MONTHLY_FEE;
+			songPrice = B_SONG_PRICE;
+			freeSongLimit = B_FREE_SONG;
+			break;
+		}
+
+		case 'c':
+		case 'C':
+		{
+			monthlyFee = C_MONTHLY_FEE;
+			songPrice = C_SONG_PRICE;
+			freeSongLimit = C_FREE_SONG;
+			break;
+		}
+
+		default:
+		{
+			cout << "\n\t*** Sorry we do not offer that package.\n\n\n";
+			system("pause");
+			cout << "\n     **********************************************************";
+			continue;
+		}
+		}
+
+
+		// number of song input
+		cout << "How many songs did you dowload this month? ";
+		cin >> songQuantity;
+		cin.ignore(100, '\n');
+		if (songQuantity < 0)
+		{
+			cout << "\n\t   *** You can not have negative number of songs!";
+			errorFlag = true;
+		}
+		if (static_cast<int>(songQuantity) < songQuantity)
+		{
+			cout << "\n\t   *** Your number of songs needs to be a whole number!";
+			errorFlag = true;
+		}
+
+
+		// total fee calculation
+		if (!errorFlag)
+		{
+			songExceed = songQuantity - freeSongLimit;
+			if (songExceed <= 0)
+			{
+				extraFee = 0;
+				total = monthlyFee;
+				tax = total * TAX_RATE;
+			}
+			else
+			{
+				extraFee = (songQuantity - freeSongLimit) * songPrice;
+				total = extraFee + monthlyFee;
+				tax = total * TAX_RATE;
+			}
+
+			total += tax;
+
+			// output
+			cout << "\nYour total bill for this month is $" << (monthlyFee + extraFee) << " + " << tax << " (for tax) = " << total << ".";
+			if (extraFee > 0)
+			{
+				cout << "\n       You have $" << extraFee << " extra charges for having " << songExceed << " more song";
+				if (songExceed > 1)
+					cout << "s";
+				cout << "\n       than your monthly limit of " << freeSongLimit << " free songs.";
+			}
+		}
+
+		errorFlag = 0;
+		cout << "\n\n\n";
+		system("pause");
+		cout << "\n     **********************************************************";
+	}
+
+	return 0;
+}

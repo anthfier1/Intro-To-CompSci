@@ -1,0 +1,158 @@
+// Online music store charge
+// using switch case to write software for calculate the charge
+// 10/9/2017
+// Wai Kit Tam
+
+#include "stdafx.h"
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+
+int main()
+{
+	system("COLOR E1");
+	system("TITLE .    Switch Case Lab -- On line music store   by Wai Kit Tam");
+
+	const char planA = 'A',
+		planB = 'B',
+		planC = 'C';
+
+	const double monthlyFeeA = 4.99,
+		monthlyFeeB = 9.99,
+		monthlyFeeC = 14.99;
+
+	const int freeSongA = 10,
+		freeSongB = 20,
+		freeSongC = 30;
+
+	const double perSongA = 0.99,
+		perSongB = 0.59,
+		perSongC = 0.29;
+
+	char PLAN;
+	double FEE, TAX, totalFee, monthlyFee,  perSong, extraFee = 0, stateTax = 0.06, SONG;
+	int extraSong, freeSong;
+
+	cout << "\t                                                                       \n"
+		<< "\t                             Switch Case GROUP Lab                      \n"
+		<< "\t                              On line music store                       \n"
+		<< "\t                   also needs nested if ... else statements             \n"
+		<< "\t                         and the conditional operator                   \n"
+		<< "\t                 and the use of \"continue\" in one place ONLY          \n"
+		<< "\t                                 by Wai Kit Tam                     \n\n\n";
+
+	while (true)
+	{
+
+		cout << setprecision(2) << fixed;
+
+		cout << "Here are the posible option packages offered in our store:\n"
+			<< "  Package " << planA << ": Monthly fee $" << setw(5) << monthlyFeeA << ". " << freeSongA << " free songs and $" << perSongA << " per song after that.\n"
+			<< "  Package " << planB << ": Monthly fee $" << setw(5) << monthlyFeeB << ". " << freeSongB << " free songs and $" << perSongB << " per song after that.\n"
+			<< "  Package " << planC << ": Monthly fee $" << setw(5) << monthlyFeeC << ". " << freeSongC << " free songs and $" << perSongC << " per song after that.\n\n";
+
+		cout << "Plwase select the option package that you have? ";
+
+		cin >> ws;
+		cin >> PLAN;
+		cin.ignore(100, '\n');
+
+		switch (PLAN)
+		{
+		case 'A':
+		case 'a':
+
+			monthlyFee = monthlyFeeA;
+			freeSong = freeSongA;
+			perSong = perSongA;
+			break;
+
+		case 'B':
+		case 'b':
+
+			monthlyFee = monthlyFeeB;
+			freeSong = freeSongB;
+			perSong = perSongB;
+			break;
+
+		case 'C':
+		case 'c':
+
+			monthlyFee = monthlyFeeC;
+			freeSong = freeSongC;
+			perSong = perSongC;
+			break;
+
+		default:
+			cout << "\n          *** Sorry we do not offer that packect.\n\n\n";
+
+			system("pause");
+
+			cout << "\n     **************************************************************\n\n";
+			continue;
+		}
+
+		bool error = false;
+
+		cout << "How many songs did you download this month? ";
+
+		cin >> ws;
+		cin >> SONG;
+		cin.ignore(100, '\n');
+
+//negative
+		if (SONG < 0)
+		{
+			cout << "\n       *** You can not have negative number of songs!\n\n\n";
+			error = true;
+		}
+//whloe number
+		if (static_cast<int>(SONG) < SONG)
+		{
+			cout << "\n       *** Your number of song needs to ba a whole number!\n\n\n";
+			error = true;
+		}
+//
+		else
+		{
+			if (error != true)
+			{
+				if (SONG >= 0 && SONG <= freeSong)
+				{
+					FEE = monthlyFee;
+					TAX = FEE * stateTax;
+					totalFee = FEE + TAX;
+
+					cout << "\nYour total bill for this month is $" << monthlyFee << " + " << TAX << " (for tax) = " << totalFee << ".\n\n\n";
+				}
+				else
+				{
+					extraSong = SONG - freeSong;
+					extraFee = extraSong * perSong;
+					FEE = monthlyFee + extraFee;
+					TAX = FEE * stateTax;
+					totalFee = FEE + TAX;
+
+					if (extraSong == 1)
+					{
+						cout << "\nYour total bill for this month is $" << FEE << " + " << TAX << " (for tax) = " << totalFee << ".\n"
+							<< "         Your have $" << extraFee << " extra charges for having " << extraSong << " more song\n"
+							<< "         than your monthly limit of " << freeSong << " free songs.\n\n\n";
+					}
+					else
+					{
+						cout << "\nYour total bill for this month is $" << FEE << " + " << TAX << " (for tax) = " << totalFee << ".\n"
+							<< "         Your have $" << extraFee << " extra charges for having " << extraSong << " more songs\n"
+							<< "         than your monthly limit of " << freeSong << " free songs.\n\n\n";
+					}
+				}
+			}
+		}
+		system("pause");
+		cout << "\n     **************************************************************\n\n";
+	}
+	return 0;
+
+}
+

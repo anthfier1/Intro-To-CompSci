@@ -1,0 +1,164 @@
+// find the area bu using overloading functions with input validation.
+// Area Overloading Prodject with input validation
+// Wai Kit Tam
+// 11/19/2017
+
+#include "stdafx.h"
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+char getChoice(char &);
+double getPositive(double);
+double getRadius();
+double getLength();
+double getWidth();
+void getSides(double&, double&, double&);
+double calcArea(double);
+double calcArea(double, double);
+double calcArea(double, double, double);
+void Again(char &);
+
+
+int main()
+{
+	system("COLOR E1");
+	system("TITLE Area Overloading Prodject with input validation   by Wai Kit Tam");
+
+	cout << "\t                                                          \n"
+		<< "\t      Project on Designing Overloading Functions          \n"
+		<< "\t   Find the area of a rectangle, triangle, or circle      \n"
+		<< "\t         also does extensve input validation              \n"
+		<< "\t           and uses by reference variables                \n"
+		<< "\t                    By Wai Kit Tam                        \n";
+
+	double Radius, Length, Width, Side1, Side2, Side3;
+	char Choice;
+
+	cout << endl << endl << "Do you want to test the program? ";
+	getChoice(Choice);
+
+	while (Choice == 'Y' || Choice == 'y')
+	{
+		cout << setprecision(6) << fixed;
+
+		Radius = getRadius();
+
+		cout << "        The area of the circle is " << calcArea(Radius) << endl;
+
+		Length = getLength();
+		Width = getWidth();
+
+		cout << "        The area of the rectangle is " << calcArea(Length, Width) << endl;
+
+		getSides(Side1, Side2, Side3);
+
+		cout << "        The area of the triangle is " << calcArea(Side1, Side2, Side3) << endl << endl;
+
+		cout << "        *********************" << endl << endl;
+
+		Again(Choice);
+	}
+
+	if (Choice == 'N' || Choice == 'n')
+	{
+		cout << endl << "Don't you love Geometry?\n";
+
+		system("pause");
+		return 0;
+	}
+}
+
+char getChoice(char & Choice)
+{
+	cin >> Choice;	cin.ignore(100, '\n');
+
+	while (Choice != 'Y' && Choice != 'y' && Choice != 'N' && Choice != 'n')
+	{
+		cout << "Please type Y or N. Try again: ";
+		cin >> Choice; cin.ignore(100, '\n');
+	}
+	return (Choice);
+}
+
+
+double getPositive(double posNumber)
+{
+	while (posNumber <= 0)
+	{
+		cout << "Positive numbers only please. Try again: ";
+		cin >> posNumber; cin.ignore(100, '\n');
+	}
+	return posNumber;
+}
+
+double getRadius()
+{
+	double Radius;
+
+	cout << endl << "Give me the radius of a circle: ";
+	cin >> Radius; cin.ignore(100, '\n');
+	Radius = getPositive(Radius);
+	return Radius;
+}
+
+double getLength()
+{
+	double Length;
+
+	cout << endl << "Give me the length of a rectangle: ";
+	cin >> Length; cin.ignore(100, '\n');
+	Length = getPositive(Length);
+	return Length;
+}
+
+double getWidth()
+{
+	double Width;
+
+	cout << "...and the width: ";
+	cin >> Width;	cin.ignore(100, '\n');
+	Width = getPositive(Width);
+	return Width;
+}
+
+void getSides(double& Side1, double& Side2, double& Side3)
+{
+	cout << endl << "Give me the lengths of the sides of a triangle." << endl;
+	cout << "Side 1: ";
+	cin >> Side1; cin.ignore(100, '\n');
+	Side1 = getPositive(Side1);
+
+	cout << "Side 2: ";
+	cin >> Side2; cin.ignore(100, '\n');
+	Side2 = getPositive(Side2);
+
+	cout << "Side 3: ";
+	cin >> Side3; cin.ignore(100, '\n');
+	Side3 = getPositive(Side3);
+}
+
+double calcArea(double Radius)
+{
+	double pi = 3.141593;
+
+	return (Radius * pi);
+}
+
+double calcArea(double Length, double Width)
+{
+	return (Length * Width);
+}
+
+double calcArea(double Side1, double Side2, double Side3)
+{
+	double p = (0.5)*(Side1 + Side2 + Side3);
+
+	return (sqrt(p*(p - Side1)*(p - Side2)*(p - Side3)));
+}
+
+void Again(char & Choice)
+{
+	cout << "Do you want to test the program again? ";
+	getChoice(Choice);
+}

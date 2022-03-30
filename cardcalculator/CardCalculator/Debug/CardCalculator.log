@@ -1,0 +1,4 @@
+﻿  cardcalculator.cpp
+c:\users\xanth\desktop\cardcalculator\cardcalculator\cardcalculator.cpp(19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+cardcalculator.obj : error LNK2019: unresolved external symbol "void __cdecl printArray(int * const,int,int,class std::basic_ostream<char,struct std::char_traits<char> > &)" (?printArray@@YAXQAHHHAAV?$basic_ostream@DU?$char_traits@D@std@@@std@@@Z) referenced in function _main
+C:\Users\xanth\Desktop\cardcalculator\Debug\CardCalculator.exe : fatal error LNK1120: 1 unresolved externals
